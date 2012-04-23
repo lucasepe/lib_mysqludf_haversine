@@ -55,9 +55,9 @@ If you have permission problems installing function such as:
 
 Follow this steps:
 
-  [1] - sudo vi /etc/apparmor.d/usr.sbin.mysqld
-  [2] - add:  /usr/lib/mysql/plugin/** mr,
-  [3] - sudo /etc/init.d/apparmor restart
+ 1. - sudo vi /etc/apparmor.d/usr.sbin.mysqld
+ 2. - add:  /usr/lib/mysql/plugin/** mr,
+ 3. - sudo /etc/init.d/apparmor restart
 
 then register the function in MySQL.
 
