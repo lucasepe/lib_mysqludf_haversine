@@ -8,15 +8,12 @@ Returns the haversine distance from two points
 Input parameters
 ----------------
 
-  lat1 (real)
-  lng1 (real)
-  lat2 (real)
-  lng2 (real)
+lat1 (real), lng1 (real), lat2 (real), lng2 (real)
 
 Output
 ------
 
-  Distance in kilometers (real)
+Distance in kilometers (real)
 
 Install
 =======
@@ -53,8 +50,8 @@ Troubleshooting
 
 If you have permission problems installing function such as:
 
-  ERROR 1126 (HY000): Can't open shared library 'lib_mysqludf_haversine.so' 
-  (errno: 22 /usr/lib/mysql/plugin/lib_mysqludf_haversine.so: failed to map segment from shared object: Permission denied)
+    ERROR 1126 (HY000): Can't open shared library 'lib_mysqludf_haversine.so' 
+    (errno: 22 /usr/lib/mysql/plugin/lib_mysqludf_haversine.so: failed to map segment from shared object: Permission denied)
 
 Follow this steps:
 
