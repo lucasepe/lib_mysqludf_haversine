@@ -25,10 +25,11 @@
  * 			lng1 (real)
  * 			lat2 (real)
  * 			lng2 (real)
+ * 			type (string - 'km', 'ft', 'mi')
  *
  *
  * 		output:
- * 			distance in kilometers (real)
+ * 			distance in type of measurement (real)
  *
  *
  * To register this function:
@@ -92,12 +93,15 @@ haversine_distance_deinit( UDF_INIT* initid );
 double 
 haversine_distance( UDF_INIT* initid, UDF_ARGS* args, char* is_null, char *error );
 
+void
+str_to_lowercase( char* src );
+
 
 
 my_bool 
 haversine_distance_init( UDF_INIT* initid, UDF_ARGS* args, char* message ) {
 
-	if ( args->arg_count != 4 ) {
+	if ( args->arg_count < 4 ) {
 		strcpy(message,"wrong number of arguments: haversine_distance() requires four arguments");
     	return 1;
   	}
@@ -120,6 +124,15 @@ haversine_distance_init( UDF_INIT* initid, UDF_ARGS* args, char* message ) {
   	if ( (args->arg_type[3] != REAL_RESULT) ) {
 		//strcpy( message, "haversine_distance() requires real as parameters 4" ); return 1;
 		args->arg_type[3] = REAL_RESULT;
+  	}
+
+  	/*
+  	 * The 5th argument is the type of distance to return. It is
+  	 * optional. Valid arguments are 'km', 'ft', 'mi'
+  	 */
+  	if ( (args->arg_type[4] != STRING_RESULT) ) {
+		//strcpy( message, "haversine_distance() requires string as parameters 5" ); return 1;
+		args->arg_type[4] = STRING_RESULT;
   	}
 
   	double *dist = malloc( sizeof(double) );
@@ -168,7 +181,23 @@ haversine_distance( UDF_INIT* initid, UDF_ARGS* args, char* is_null, char *error
 	
 	result = ( R * c );
 
+	/*
+	 * If we have a 5th distance type argument...
+	 */
+	if (args->arg_count == 5) {
+		str_to_lowercase(args->args[4]);
+
+		if (strcmp(args->args[4], "ft") == 0) result *= 3280.8399;
+		if (strcmp(args->args[4], "mi") == 0) result *= 0.621371192;
+	}
+
 	return result;
+}
+
+
+void
+str_to_lowercase( char* src ) {
+	for (; *src; src++) *src = tolower(*src);
 }
 
 
