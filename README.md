@@ -8,12 +8,14 @@ Returns the haversine distance from two points
 Input parameters
 ----------------
 
-lat1 (real), lng1 (real), lat2 (real), lng2 (real)
+lat1 (real), lng1 (real), lat2 (real), lng2 (real), type (string - optinal - 'km', 'ft', 'mi')
 
 Output
 ------
 
-Distance in kilometers (real)
+Distance between the two points. The measurement is returned in kilometers (real)
+by default, however if you specify the 5th *type* argument you may return in other
+measurements.
 
 Install
 =======
@@ -70,3 +72,6 @@ Once installed, to calculate distance between two Latitude/Longitude points:
 
 The `SELECT` will return all the records with a distance less then 40 kilometers.
 
+    SELECT id, name FROM MY_PLACES WHERE haversine_distance(lat1, lng1, lat2, lng2, 'ft') < 25;
+
+The `SELET` will return all the records with a distance less then 25 feet.
