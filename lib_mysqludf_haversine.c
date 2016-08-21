@@ -161,6 +161,12 @@ haversine_distance_deinit( UDF_INIT* initid ) {
 double 
 haversine_distance( UDF_INIT* initid, UDF_ARGS* args, char* is_null, char *error ) {
 
+        /*Lat/Long should not be NULL*/
+        if (!args->args[0] || !args->args[1] || !args->args[2] || !args->args[3]) {
+            *is_null = 1;
+            return 0;
+        }
+
 	double result = *(double*) initid->ptr;
 	
 	/*Earth Radius in Kilometers.*/
