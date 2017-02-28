@@ -3,7 +3,9 @@ lib_mysqludf_haversine
 
 MySQL UDF to compute the [Haversine formula](http://en.wikipedia.org/wiki/Haversine_formula)
 
-Returns the haversine distance from two points 
+Returns the haversine distance from two points
+
+Note: MySQL 5.7 introduced the native [`st_distance_sphere`](https://dev.mysql.com/doc/refman/5.7/en/spatial-convenience-functions.html#function_st-distance-sphere) function, so this project here is not required anymore.
 
 Input parameters
 ----------------
